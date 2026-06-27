@@ -1,19 +1,43 @@
 package com.ngp.SpringBoot;
 
+import com.ngp.SpringBoot.Entities.Tracker;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
-@RequestMapping("track")
+@RequestMapping("/track")
 public class TrackerController {
     @Autowired
-    private TrackerService tr;
+    private TrackerService ts;
 
-    @GetMapping("get")
-    String track(){
-        tr.printTrack();
-        return "Tracking...!!!";
+    @PostMapping("/create")
+    ResponseEntity createUser (@RequestBody Tracker t){
+        return new ResponseEntity<>(ts.createTracker(t), HttpStatus.CREATED);
+    }
+    @GetMapping("/all")
+    public List<Tracker> getAll(){
+        return ts.getAllTrackers();
+    }
+
+    @GetMapping("/{id}")
+    public Tracker getById(@PathVariable int id)
+    {
+        return ts.getTracker(id);
+    }
+
+    @PutMapping("/update")
+    public Tracker update(@RequestBody Tracker t)
+    {
+        return ts.updateTracker(t);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public String delete(@PathVariable int id)
+    {
+        return ts.deleteTracker(id);
     }
 }

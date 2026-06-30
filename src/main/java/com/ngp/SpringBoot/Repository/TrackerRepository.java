@@ -1,4 +1,4 @@
-package com.ngp.SpringBoot;
+package com.ngp.SpringBoot.Repository;
 
 import com.ngp.SpringBoot.Entities.Tracker;
 import org.springframework.data.jpa.repository.JpaRepository;

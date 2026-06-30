@@ -1,7 +1,9 @@
-package com.ngp.SpringBoot;
+package com.ngp.SpringBoot.Controller;
 
 import com.ngp.SpringBoot.Entities.Tracker;
+import com.ngp.SpringBoot.Service.TrackerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -39,5 +41,10 @@ public class TrackerController {
     public String delete(@PathVariable int id)
     {
         return ts.deleteTracker(id);
+    }
+
+    @GetMapping("/page")
+    public Page<Tracker> getAllPages(@RequestParam int page,@RequestParam int size){
+        return ts.getAllTrackerPages(page, size);
     }
 }
